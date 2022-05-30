@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swipes_detector/swipes_detector.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,17 +45,24 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
+        child: SwipesDetector(
+          onSwipeUp: () => _setText('Swipe Up'),
+          onSwipeDown: () => _setText('Swipe Down'),
+          onSwipeLeft: () => _setText('Swipe Left'),
+          onSwipeRight: () => _setText('Swipe Right'),
+          child: Container(
+            color: Colors.blue,
+            alignment: Alignment.center,
+            width: 256,
+            height: 164,
+            child: Text(
               _text,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4
+                  ?.copyWith(color: Colors.white),
             ),
-          ],
+          ),
         ),
       ),
     );
