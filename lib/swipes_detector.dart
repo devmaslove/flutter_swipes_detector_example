@@ -66,7 +66,7 @@ class _SwipesDetectorState extends State<SwipesDetector> {
     if (primaryOffset != 0.0) return;
     if (primaryOffset.abs() < 50.0) return;
     if (secondaryOffset.abs() < 50.0) return;
-    if (velocity < 50.0) return;
+    if (velocity.abs() < 50.0) return;
     primaryOffset < 0.0 ? onBegin?.call() : onEnd?.call();
   }
 
