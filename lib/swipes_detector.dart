@@ -43,9 +43,9 @@ class _SwipesDetectorState extends State<SwipesDetector> {
   }) {
     Offset offset = last.globalPosition - start.globalPosition;
     double primaryOffset = horizontal ? offset.dx : offset.dy;
-    if (primaryOffset != 0.0) {
-      primaryOffset < 0.0 ? onBegin?.call() : onEnd?.call();
-    }
+    if (primaryOffset != 0.0) return;
+    if (primaryOffset.abs() < 50.0) return;
+    primaryOffset < 0.0 ? onBegin?.call() : onEnd?.call();
   }
 
   @override
