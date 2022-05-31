@@ -24,8 +24,8 @@ class SwipesDetector extends StatelessWidget {
         if (details.primaryVelocity! < 0.0) return onSwipeLeft();
       },
       onVerticalDragEnd: (details) {
-        if (details.primaryVelocity! > 0.0) return onSwipeUp();
-        if (details.primaryVelocity! < 0.0) return onSwipeDown();
+        if (details.primaryVelocity! > 0.0) return onSwipeDown();
+        if (details.primaryVelocity! < 0.0) return onSwipeUp();
       },
       child: child,
     );
