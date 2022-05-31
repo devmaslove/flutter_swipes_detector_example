@@ -33,6 +33,24 @@ class _SwipesDetectorState extends State<SwipesDetector> {
     globalPosition: const Offset(0, 0),
   );
 
+  double _getVelocity(
+    final double primaryOffset,
+    final DragStartDetails start,
+    final DragUpdateDetails last,
+    final DragEndDetails end,
+  ) {
+    double velocity = end.primaryVelocity ?? 0.0;
+    if (velocity == 0.0 &&
+        start.sourceTimeStamp != null &&
+        last.sourceTimeStamp != null) {
+      Duration duration = last.sourceTimeStamp! - start.sourceTimeStamp!;
+      if (duration.inMilliseconds > 0) {
+        velocity = (primaryOffset * 1000) / duration.inMilliseconds;
+      }
+    }
+    return velocity;
+  }
+
   _onDragEnd({
     required bool horizontal,
     required final DragStartDetails start,
@@ -44,7 +62,7 @@ class _SwipesDetectorState extends State<SwipesDetector> {
     Offset offset = last.globalPosition - start.globalPosition;
     double primaryOffset = horizontal ? offset.dx : offset.dy;
     double secondaryOffset = horizontal ? offset.dy : offset.dx;
-    double velocity = end.primaryVelocity ?? 0.0;
+    double velocity = _getVelocity(primaryOffset, start, last, end);
     if (primaryOffset != 0.0) return;
     if (primaryOffset.abs() < 50.0) return;
     if (secondaryOffset.abs() < 50.0) return;
