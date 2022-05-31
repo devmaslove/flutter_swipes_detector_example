@@ -19,6 +19,14 @@ class SwipesDetector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onHorizontalDragEnd: (details) {
+        if (details.primaryVelocity! > 0.0) return onSwipeRight();
+        if (details.primaryVelocity! < 0.0) return onSwipeLeft();
+      },
+      onVerticalDragEnd: (details) {
+        if (details.primaryVelocity! > 0.0) return onSwipeUp();
+        if (details.primaryVelocity! < 0.0) return onSwipeDown();
+      },
       child: child,
     );
   }
